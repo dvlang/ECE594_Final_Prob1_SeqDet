@@ -1,7 +1,7 @@
 #include "datapath.h"
 #include "controller.h"
 
-SC_MODULE(multiplier)
+SC_MODULE(seqdet)
 {
 	sc_in<sc_logic> clk, rst, go;
 	sc_inout<sc_lv<4> > databusA;
@@ -13,7 +13,7 @@ SC_MODULE(multiplier)
 	datapath* datapathInst;
 	controller* controllerInst;	
 
-	SC_CTOR(multiplier)
+	SC_CTOR(seqdet)
 	{
 				
 		datapathInst = new datapath("datapathInst");

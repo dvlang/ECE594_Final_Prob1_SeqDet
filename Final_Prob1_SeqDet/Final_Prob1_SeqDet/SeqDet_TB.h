@@ -1,6 +1,6 @@
-#include "multiplier.h"
+#include "seqdet.h"
 
-SC_MODULE(multiplier_TB)
+SC_MODULE(SeqDet_TB)
 {
 
 	sc_signal<sc_logic> clk, ready, go, rst;
@@ -12,7 +12,7 @@ SC_MODULE(multiplier_TB)
 	sc_signal<sc_lv<8> > temp_data;
 	sc_lv<8>  multiplier_result;
 	
-	multiplier* mult;
+	seqdet* mult;
 
 	void starting();
 	void resetting();
@@ -23,9 +23,9 @@ SC_MODULE(multiplier_TB)
 	void displaying();
 	void stopping();
 
-	SC_CTOR(multiplier_TB)
+	SC_CTOR(SeqDet_TB)
 	{
-		mult = new multiplier("mult_Instance");
+		mult = new seqdet("mult_Instance");
 			mult->clk(clk);
 			mult->rst(rst);
 			mult->go(go);

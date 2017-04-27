@@ -1,6 +1,6 @@
-#include "multiplier_TB.h"
+#include "SeqDet_TB.h"
 
-void multiplier_TB::clocking() {
+void SeqDet_TB::clocking() {
 	int i;
 	wait(0,SC_NS);
 	clk=sc_logic('0');
@@ -13,7 +13,7 @@ void multiplier_TB::clocking() {
 		wait(50,SC_NS);
     }
 }
-void multiplier_TB::outputting() {
+void SeqDet_TB::outputting() {
 
 	if (ready == '1') {
 
@@ -23,12 +23,12 @@ void multiplier_TB::outputting() {
 
 }
 
-void multiplier_TB::bussing() {
+void SeqDet_TB::bussing() {
 
 	
 }
 
-void multiplier_TB::resetting(){			
+void SeqDet_TB::resetting(){
 	rst = (sc_logic)'0';	
 	wait(30,SC_NS);
 	rst = (sc_logic)'1';
@@ -36,7 +36,7 @@ void multiplier_TB::resetting(){
 	rst = (sc_logic)'0';	
 }
 
-void multiplier_TB::starting() {
+void SeqDet_TB::starting() {
 	go = (sc_logic)'0';
 
 	wait(110,SC_NS);
@@ -49,7 +49,7 @@ void multiplier_TB::starting() {
 
 }
 
-void multiplier_TB::inputting() {
+void SeqDet_TB::inputting() {
 	int i, val; 
 
 	for(i=0; i < 1; i++) {
@@ -64,13 +64,13 @@ void multiplier_TB::inputting() {
 	wait(200,SC_NS);		
 }
 
-void multiplier_TB::displaying() {
-	cout <<"At: "<<sc_time_stamp()<<" multiplier result changes to: "<<multiplier_result<<'\n';
+void SeqDet_TB::displaying() {
+	cout <<"At: "<<sc_time_stamp()<<" SeqDet_TB result changes to: "<<multiplier_result<<'\n';
 
 }
 
 
-void multiplier_TB::stopping() {
+void SeqDet_TB::stopping() {
 	cout << '\n' << "****Press 2 to continue, 1 to quit ****"<< '\n';
 	cin >> done;
 	if (done == 1) {
