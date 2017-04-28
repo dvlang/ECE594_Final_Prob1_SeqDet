@@ -37,10 +37,11 @@ SC_MODULE(SeqDet_TB)
 		SC_THREAD(resetting);				
 		SC_THREAD(clocking);
 		SC_THREAD(inputting);
+		sensitive << clk;
 		SC_METHOD(outputting);
 		sensitive << Wbus;
 		SC_METHOD(stopping);	
-		sensitive << Wbus;
+		sensitive  << clk.posedge_event();
 		SC_THREAD(bussing); 
 		SC_METHOD(displaying); 
 		sensitive << clk.posedge_event();

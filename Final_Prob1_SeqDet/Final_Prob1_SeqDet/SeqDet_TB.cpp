@@ -56,25 +56,29 @@ void SeqDet_TB::starting() {
 void SeqDet_TB::inputting() {
 	int i,rnd; 
 
-	for(i=0; i < 10; i++) {
-		wait(150,SC_NS);
+	for (i = 0; i <= 400; i++) {
+		wait(50,SC_NS);
 		
 		//databusA = "1111";
 		//databusB = "1001";
 		if (hold) {
-			databusA = databusB;
-			databusB = databusB;
-		}
-		else {
-			srand(4453 * (unsigned)time(NULL));
+			srand(time(NULL));
 			rnd = rand() % 16;
 			databusA = (sc_lv<4>)rnd;
-			srand(695 * (unsigned)time(NULL));
+			databusB = (sc_lv<4>)rnd;
+		}
+		else {
+			srand(time(NULL));
 			rnd = rand() % 16;
+			databusA = (sc_lv<4>)rnd;
+			wait(10, SC_NS);
+			srand(time(NULL));
+
+			rnd = rand() % 15;
 			databusB = (sc_lv<4>)rnd;
 		}
 	}
-	wait(200,SC_NS);		
+	wait(50,SC_NS);		
 }
 
 void SeqDet_TB::displaying() {
@@ -89,6 +93,10 @@ void SeqDet_TB::stopping() {
 	if (done == 1) {
 		sc_stop();
 
+	}
+	else if (done == 2)
+	{
+		hold = false;
 	}
 	else if(done == 3)
 	{
