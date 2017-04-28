@@ -1,4 +1,6 @@
 #include "SeqDet_TB.h"
+#include <stdlib.h>
+#include <time.h>
 
 void SeqDet_TB::clocking() {
 	int i;
@@ -15,11 +17,11 @@ void SeqDet_TB::clocking() {
 }
 void SeqDet_TB::outputting() {
 
-	if (ready == '1') {
+	//if (ready == '1') {
 
-		multiplier_result = Wbus.read();
+		count_result = Wbus.read();
 
-	}
+//	}
 
 }
 
@@ -37,7 +39,9 @@ void SeqDet_TB::resetting(){
 }
 
 void SeqDet_TB::starting() {
-	go = (sc_logic)'0';
+	wait(10, SC_NS);
+	
+	/*go = (sc_logic)'0';
 
 	wait(110,SC_NS);
 	for(int i = 0; i < 1; i++){		
@@ -45,36 +49,49 @@ void SeqDet_TB::starting() {
 		wait(70,SC_NS);
 			go = (sc_logic)'0';
 		wait(1350,SC_NS);
-	}	
+	}	*/
 
 }
 
 void SeqDet_TB::inputting() {
-	int i, val; 
+	int i,rnd; 
 
-	for(i=0; i < 1; i++) {
+	for(i=0; i < 10; i++) {
 		wait(150,SC_NS);
-
-
-		databusA = "1111";
-		databusB = "1111";
-
 		
+		//databusA = "1111";
+		//databusB = "1001";
+		if (hold) {
+			databusA = databusB;
+			databusB = databusB;
+		}
+		else {
+			srand(4453 * (unsigned)time(NULL));
+			rnd = rand() % 16;
+			databusA = (sc_lv<4>)rnd;
+			srand(695 * (unsigned)time(NULL));
+			rnd = rand() % 16;
+			databusB = (sc_lv<4>)rnd;
+		}
 	}
 	wait(200,SC_NS);		
 }
 
 void SeqDet_TB::displaying() {
-	cout <<"At: "<<sc_time_stamp()<<" SeqDet_TB result changes to: "<<multiplier_result<<'\n';
+	//cout <<"At: "<<sc_time_stamp()<<" SeqDet_TB result changes to: "<< count_result <<'\n';
 
 }
 
 
 void SeqDet_TB::stopping() {
-	cout << '\n' << "****Press 2 to continue, 1 to quit ****"<< '\n';
+	cout << '\n' << "****Press 2 to continue (new value), 3 to continue with same, 1 to quit ****"<< '\n';
 	cin >> done;
 	if (done == 1) {
 		sc_stop();
 
+	}
+	else if(done == 3)
+	{
+		hold = true;
 	}
 }

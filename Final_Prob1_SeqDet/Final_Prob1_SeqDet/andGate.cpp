@@ -1,5 +1,5 @@
 #include "andGate.h"
 
 void andGate::andFunc() {	
-	y = (a & b);
+	y = (a & b & c);
 }

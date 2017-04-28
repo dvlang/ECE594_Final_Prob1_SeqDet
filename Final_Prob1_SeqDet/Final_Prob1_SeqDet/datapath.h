@@ -1,103 +1,78 @@
-#include "dRegisterRaE.h"
+
 #include "andGate.h"
-#include "nBitAdder.h"
-#include "octalMux2to1.h"
-#include "fourbitPad.h"
-#include "orGate.h"
+#include "notGate.h"
+#include "comparitor.h"
+#include "dFF.h"
+#include "uCounterRaEL.h"
 
 SC_MODULE(datapath)
 {
 	//***************INPUTS*****************
-
-	
-		//+++++++new inputsignals
-	sc_in<sc_logic> rst, clk;
-	sc_in<sc_logic>clr_out, load_out, sel_input, load_tmp, load_in, clr;
-		//+++++++new input signals
+	sc_in<sc_logic> rst, clk, ffen;
 
 	//***************IN / OUTS**************
-
 	sc_inout<sc_lv<4>> dataA;
+	sc_inout<sc_lv<4>> dataB;
 
 	//***************OUTPUTS****************
-
-
-		//+++++++new output signals
-	sc_out<sc_lv<8>> Wbus_q;
-		//+++++++new output signals
-	
+	sc_out<sc_lv<4>> Wbus_q;
+		
 	//***********SIGNALS********************
+	sc_signal<sc_logic> compout, notcompout, regA_q, regB_q, cnt_en, pld;
+	sc_signal <sc_lv<4> > parin;
 
-	sc_signal<sc_logic> co,ci;
-
-
-		//++++new signals for my multiplier
-	sc_signal<sc_logic>orOut;
-	sc_signal<sc_lv<8> >paddeddataA, regA_q, muxedinputtotmp, tmpOut_q, tmpOut, adderout;
-		//end new signals for my multiplier
-
+	//***Instanciations***
+	dFF* regA;
+	dFF* regB;
+	andGate* andA;
+	notGate* notComp;
+	comparitor* comp;
+	uCounterRaEL* counter;
 	
-	nBitAdder* adder;
-	octalMux2to1* mux;
-	fourbitPad* padA;
-	orGate* orG;
-	dRegisterRaE* regA;
-	dRegisterRaE* regOut;
-	dRegisterRaE* regTmp;
-
-
 	void datapath_func();
 	void datapath_disp();
 	
 	SC_CTOR(datapath)
 	{
-		//Padding gate
-		padA = new fourbitPad("PadA_Instance");
-			padA->ain(dataA);
-			padA->yout(paddeddataA);
-		
-		regA = new dRegisterRaE("regA_Instance");
-			regA->rst(clr);
+		comp = new comparitor("comp_Instance");
+			comp->ain(dataA);
+			comp->bin(dataB);
+			comp->eq(compout);
+
+		notComp = new notGate("notG_Instance");
+			notComp->a(compout);
+			notComp->y(notcompout);
+
+		regA = new dFF("dffA_Instance");
+			regA->rst(rst);
 			regA->clk(clk);
-			regA->cen(load_in);
-			regA->regin(paddeddataA);
-			regA->regout(regA_q);
+			regA->cen(ffen);
+			regA->din(notcompout);
+			regA->qout(regA_q);
 
-		regTmp = new dRegisterRaE("regTmp_Instance");
-			regTmp->rst(clr);
-			regTmp->clk(clk);
-			regTmp->cen(orOut);
-			regTmp->regin(muxedinputtotmp);
-			regTmp->regout(tmpOut_q);
-		
-		regOut = new dRegisterRaE("regOut_Instance");
-			regOut->rst(clr_out);
-			regOut->clk(clk);
-			regOut->cen(load_out);
-			regOut->regin(tmpOut_q);
-			regOut->regout(Wbus_q);
+		regB = new dFF("dffB_Instance");
+			regB->rst(rst);
+			regB->clk(clk);
+			regB->cen(ffen);
+			regB->din(regA_q);
+			regB->qout(regB_q);
 
-		adder = new nBitAdder("adder_Instance");
-			adder->ain(regA_q);
-			adder->bin(tmpOut_q);
-			adder->ci(ci);
-			adder->addout(adderout);
-			adder->co(co);
-		
-		mux = new octalMux2to1("mux_Instance");
-			mux->sel(sel_input);
-			mux->ain(paddeddataA);
-			mux->bin(adderout);
-			mux->yout(muxedinputtotmp);
+		andA = new andGate("andG_Instance");
+			andA->a(regA_q);
+			andA->b(regB_q);
+			andA->c(notcompout);
+			andA->y(cnt_en);
 
-		orG = new orGate("orG_Instance");
-			orG->a(load_in);
-			orG->b(load_tmp);
-			orG->y(orOut);
-
+		counter = new uCounterRaEL("counter_Instance");
+			counter->cen(cnt_en);
+			counter->clk(clk);
+			counter->cntout(Wbus_q);
+			counter->parin(parin);
+			counter->pld(pld);
+			counter->rst(rst);
 
 		SC_METHOD(datapath_func); 
-		sensitive << clr;
+		sensitive << rst;
 
 		SC_METHOD(datapath_disp); 
 		sensitive << clk.pos();

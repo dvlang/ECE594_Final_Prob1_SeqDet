@@ -23,10 +23,8 @@
     <ClCompile Include="comparitor.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="datapath.cpp" />
-    <ClCompile Include="dRegisterRaE.cpp" />
-    <ClCompile Include="fourbitPad.cpp" />
-    <ClCompile Include="nBitAdder.cpp" />
-    <ClCompile Include="octalMux2to1.cpp" />
+    <ClCompile Include="dFF.cpp" />
+    <ClCompile Include="notGate.cpp" />
     <ClCompile Include="orGate.cpp" />
     <ClCompile Include="seqdet.cpp" />
     <ClCompile Include="SeqDet_Main.cpp" />
@@ -38,10 +36,8 @@
     <ClInclude Include="comparitor.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="datapath.h" />
-    <ClInclude Include="dRegisterRaE.h" />
-    <ClInclude Include="fourbitPad.h" />
-    <ClInclude Include="nBitAdder.h" />
-    <ClInclude Include="octalMux2to1.h" />
+    <ClInclude Include="dFF.h" />
+    <ClInclude Include="notGate.h" />
     <ClInclude Include="orGate.h" />
     <ClInclude Include="seqdet.h" />
     <ClInclude Include="SeqDet_TB.h" />

@@ -3,16 +3,17 @@
 SC_MODULE(SeqDet_TB)
 {
 
-	sc_signal<sc_logic> clk, ready, go, rst;
+	sc_signal<sc_logic> clk, rst;
 	int done = 0;
+	bool hold = false;
 
 	sc_signal_rv<4> databusA;
 	sc_signal_rv<4> databusB;
-	sc_signal_rv<8>Wbus;
-	sc_signal<sc_lv<8> > temp_data;
-	sc_lv<8>  multiplier_result;
+	sc_signal_rv<4>Wbus;
+//	sc_signal<sc_lv<8> > temp_data;
+	sc_lv<4>  count_result;
 	
-	seqdet* mult;
+	seqdet* seqDet;
 
 	void starting();
 	void resetting();
@@ -25,25 +26,23 @@ SC_MODULE(SeqDet_TB)
 
 	SC_CTOR(SeqDet_TB)
 	{
-		mult = new seqdet("mult_Instance");
-			mult->clk(clk);
-			mult->rst(rst);
-			mult->go(go);
-			mult->databusA(databusA);
-			mult->databusB(databusB);
-			mult->ready(ready);
-			mult->Wbus(Wbus);
+		seqDet = new seqdet("seq_Instance");
+			seqDet->clk(clk);
+			seqDet->rst(rst);
+			seqDet->databusA(databusA);
+			seqDet->databusB(databusB);
+			seqDet->Wbus(Wbus);
 
 		SC_THREAD(starting);				
 		SC_THREAD(resetting);				
 		SC_THREAD(clocking);
 		SC_THREAD(inputting);
 		SC_METHOD(outputting);
-		sensitive << ready;
+		sensitive << Wbus;
 		SC_METHOD(stopping);	
-		sensitive << ready;
+		sensitive << Wbus;
 		SC_THREAD(bussing); 
 		SC_METHOD(displaying); 
-		sensitive << ready.posedge_event();
+		sensitive << clk.posedge_event();
 	}
 };

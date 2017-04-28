@@ -24,21 +24,6 @@
     <ClCompile Include="datapath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dRegisterRaE.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fourbitPad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="nBitAdder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="octalMux2to1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="orGate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="uCounterRaEL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +39,15 @@
     <ClCompile Include="comparitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dFF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="notGate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="orGate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="andGate.h">
@@ -63,21 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="datapath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dRegisterRaE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fourbitPad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="nBitAdder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="octalMux2to1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="orGate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="uCounterRaEL.h">
@@ -90,6 +69,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="comparitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dFF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="notGate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="orGate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

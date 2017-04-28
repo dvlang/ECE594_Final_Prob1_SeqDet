@@ -5,7 +5,7 @@
 SC_MODULE(comparitor)
 {
 	sc_in<sc_lv<4> > ain, bin;
-	sc_out<sc_logic > y;
+	sc_out<sc_logic > eq;
 
 	SC_CTOR(comparitor)
 	{
