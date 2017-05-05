@@ -1,5 +1,5 @@
 #include <systemc.h>
-//#include "uCounterRaEL.h"
+
 
 SC_MODULE (controller) {
 	sc_in<sc_logic> clk, rst;

@@ -25,7 +25,6 @@
     <ClCompile Include="datapath.cpp" />
     <ClCompile Include="dFF.cpp" />
     <ClCompile Include="notGate.cpp" />
-    <ClCompile Include="orGate.cpp" />
     <ClCompile Include="seqdet.cpp" />
     <ClCompile Include="SeqDet_Main.cpp" />
     <ClCompile Include="SeqDet_TB.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="datapath.h" />
     <ClInclude Include="dFF.h" />
     <ClInclude Include="notGate.h" />
-    <ClInclude Include="orGate.h" />
     <ClInclude Include="seqdet.h" />
     <ClInclude Include="SeqDet_TB.h" />
     <ClInclude Include="uCounterRaEL.h" />

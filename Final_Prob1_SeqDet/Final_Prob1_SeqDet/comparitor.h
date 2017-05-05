@@ -1,4 +1,4 @@
-// and gate
+// comparitor gate
 
 #include <systemc.h>
 

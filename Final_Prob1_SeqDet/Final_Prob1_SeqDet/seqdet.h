@@ -6,7 +6,7 @@ SC_MODULE(seqdet)
 	sc_in<sc_logic> clk, rst;
 	sc_inout<sc_lv<4> > databusA;
 	sc_inout<sc_lv<4> > databusB;
-	//sc_out<sc_logic> ready;
+
 	sc_out<sc_lv<4>> Wbus;
 	sc_signal <sc_logic> ffen;
 

@@ -10,7 +10,7 @@ SC_MODULE(SeqDet_TB)
 	sc_signal_rv<4> databusA;
 	sc_signal_rv<4> databusB;
 	sc_signal_rv<4>Wbus;
-//	sc_signal<sc_lv<8> > temp_data;
+
 	sc_lv<4>  count_result;
 	
 	seqdet* seqDet;

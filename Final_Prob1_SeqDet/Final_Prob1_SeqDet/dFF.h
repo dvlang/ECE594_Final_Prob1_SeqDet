@@ -5,8 +5,6 @@
 SC_MODULE(dFF)
 {
 	sc_in<sc_logic> rst, clk, cen, din;
-	//sc_in<sc_lv<8> > regin;
-	//sc_out<sc_lv<8> > regout;
 	sc_out<sc_logic> qout;
 
 	SC_CTOR(dFF)
